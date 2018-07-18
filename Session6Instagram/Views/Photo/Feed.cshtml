@@ -1,0 +1,15 @@
+﻿@model List<Session6Instagram.Models.Photo>
+
+@{
+    ViewBag.Title = "Feed";
+}
+
+<h2>Feed</h2>
+
+@foreach(var photo in Model)
+{
+    <p>@photo.Caption</p>
+    <img src="@photo.Picture" />
+    <p>Image by: @photo.PhotoUser.Name</p>
+    <p>Uploaded On: @photo.Date</p>
+}
