@@ -4,12 +4,23 @@
     ViewBag.Title = "Feed";
 }
 
+<style>
+    .insta
+    {
+        max-width: 200px;
+        max-height: 200px;
+    }
+</style>
+
 <h2>Feed</h2>
 
 @foreach(var photo in Model)
 {
-    <p>@photo.Caption</p>
-    <img src="@photo.Picture" />
-    <p>Image by: @photo.PhotoUser.Name</p>
-    <p>Uploaded On: @photo.Date</p>
+    if (photo.PictureData != null)
+    {
+        <p>@photo.Caption</p>
+        <img class="insta" src="/photo/getimage?id=@photo.Id" />
+        <p>Image by: @photo.PhotoUser.Name</p>
+        <p>Uploaded On: @photo.Date</p>
+    }
 }
