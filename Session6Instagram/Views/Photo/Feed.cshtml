@@ -22,5 +22,8 @@
         <img class="insta" src="/photo/getimage?id=@photo.Id" />
         <p>Image by: @photo.PhotoUser.Name</p>
         <p>Uploaded On: @photo.Date</p>
+        <p>Likes: @photo.Likes.Count <a href="/photo/presslike?userId=1&photoId=@photo.Id" class="btn btn-primary">Like!</a></p>
     }
 }
+
+<h2>Your current user is: @ViewBag.currentUser.Name</h2>

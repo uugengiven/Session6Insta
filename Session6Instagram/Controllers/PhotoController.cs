@@ -39,6 +39,7 @@ namespace Session6Instagram.Controllers
         public ActionResult Feed()
         {
             var database = new InstagramDbContext();
+            ViewBag.currentUser = database.Users.Find(1);
             return View(database.Photos.ToList());
         }
 
@@ -96,6 +97,29 @@ namespace Session6Instagram.Controllers
             newstream.Position = 0;
 
             return new FileStreamResult(newstream, "image/jpg");
+        }
+
+        public ActionResult PressLike(int userId, int photoId)
+        {
+            var database = new InstagramDbContext();
+            var user = database.Users.Find(userId);
+            var photo = database.Photos.Find(photoId);
+            var like = database.Likes.Where(x => x.User.Id == user.Id && x.Photo.Id == photo.Id).FirstOrDefault();
+            if (like == null)
+            {
+                like = new Like();
+                like.Photo = photo;
+                like.User = user;
+                database.Likes.Add(like);
+                database.SaveChanges();
+            }
+            else
+            {
+                database.Likes.Remove(like);
+                database.SaveChanges();
+            }
+
+            return RedirectToAction("feed");
         }
 
 
